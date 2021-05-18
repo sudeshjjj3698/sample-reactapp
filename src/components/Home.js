@@ -12,6 +12,7 @@ function Home(props) {
 
     const addCourse=(e)=>{
         props.addCourse({name})
+        setName('')
         e.preventDefault()
     }
     const delete_course=(id)=>{
@@ -24,7 +25,7 @@ function Home(props) {
                 {props.data?.success && <p className="text-success">{props.data.message}</p>}
                 {props.data?.success==false && <p className="text-danger">{props.data.message}</p>}
             <h2>Create Course</h2>
-            <form className="row g-3" onSubmit={addCourse}>
+            <form className="row g-1" onSubmit={addCourse}>
                 <div className="col-auto">
                     <label htmlFor="name" className="visually-hidden">Course name</label>
                     <input type="text" name="name" value={name} onChange={(e)=>setName(e.target.value)} className="form-control" id="name" placeholder="Course name"/>
@@ -35,7 +36,7 @@ function Home(props) {
                 
             </form>
             </div>
-            <div className="row mt-5">
+            <div className="row mt-3">
                 <h3>Course List</h3>
                 {props.loading && 'fetching.....'}
             <table className="table">
@@ -43,7 +44,7 @@ function Home(props) {
                     <tr>
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
-                    <th scope="col">Actioin</th>
+                    <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -51,7 +52,12 @@ function Home(props) {
                         <tr>
                         <th scope="row">{index+1}</th>
                         <td>{course.name}</td>
-                        <td><button className="btn btn-danger" onClick={()=>delete_course(course._id)}>delete</button></td>
+                        <td>
+                            <div className="btn-toolbar">
+                            <button className="btn btn-danger" onClick={()=>delete_course(course._id)}>delete</button>
+                            <button className="btn btn-primary" >Add Subject</button>
+                            </div>
+                        </td>
                         </tr>
                     ))}
                     
