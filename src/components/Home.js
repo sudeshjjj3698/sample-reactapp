@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import {connect} from 'react-redux'
 import {createCourse,fetchCourse,deleteCourse} from '../redux/course/courseActions'
-import { DELETE_COURSE } from '../redux/course/courseTypes'
+import {Link} from 'react-router-dom'
 
 function Home(props) {
     const [name, setName] = useState('')
@@ -53,9 +53,9 @@ function Home(props) {
                         <th scope="row">{index+1}</th>
                         <td>{course.name}</td>
                         <td>
-                            <div className="btn-toolbar">
+                            <div className="parent d-flex">
+                            <Link to={`/subject/${course._id}`}><button className="btn btn-primary" >Add Subjects</button></Link>
                             <button className="btn btn-danger" onClick={()=>delete_course(course._id)}>delete</button>
-                            <button className="btn btn-primary" >Add Subject</button>
                             </div>
                         </td>
                         </tr>

@@ -3,33 +3,52 @@ import API from '../../api'
 
 export const fetch_subject=()=>{
     return{
-        action:FETCH_SUBJECT
+        type:FETCH_SUBJECT
     }
 }
 
 const fetch_subject_success=(data)=>{
     return{
-        action:FETCH_SUBJECT_SUCCESS,
+        type:FETCH_SUBJECT_SUCCESS,
         payload:data
     }
 }
 
 const fetch_subject_failure=(data)=>{
     return{
-        action:FETCH_SUBJECT_FAILURE,
+        type:FETCH_SUBJECT_FAILURE,
         payload:data
     }
 }
 
 export const fetchSubjects=(course_id)=>{
     return (dispatch)=>{
+        dispatch(fetch_subject())
         API.get(`subject/list?id=${course_id}`)
         .then(response=>{
             let responseData=response.data
-            console.log(responseData)
+            if(responseData.success)
+            {
+                dispatch(fetch_subject_success(responseData.message.Subjects))
+            }else
+            {
+                dispatch(fetch_subject_failure(responseData.message))
+            }
         }).catch(error=>{
             let errormsg=error.message
-            console.log(errormsg)
+            dispatch(fetch_subject_failure(errormsg))
+        })
+    }
+}
+
+export const deleteSubject=(subject_id,course_id)=>{
+    return (dispatch)=>{
+        API.delete(`subject/delete?id=${subject_id}&course=${course_id}`)
+        .then(response=>{
+            let responseData=response.data
+            dispatch(fetchSubjects(course_id))
+        }).catch(error=>{
+            let errorMsg=error.message
         })
     }
 }
