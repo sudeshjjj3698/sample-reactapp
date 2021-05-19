@@ -49,7 +49,7 @@ function Home(props) {
                 </thead>
                 <tbody>
                     {props.courses && props.courses.success && props.courses.message.courses.map((course,index)=>(
-                        <tr>
+                        <tr key={index}>
                         <th scope="row">{index+1}</th>
                         <td>{course.name}</td>
                         <td>

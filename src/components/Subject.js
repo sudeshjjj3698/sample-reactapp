@@ -3,6 +3,7 @@ import {useParams} from 'react-router'
 import API from '../api'
 import {connect} from 'react-redux'
 import {fetchSubjects,deleteSubject} from '../redux/subject/subjectActions'
+import {Link} from 'react-router-dom'
 
 function Subject(props) {
     const [error,setError]=useState('')
